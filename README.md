@@ -26,10 +26,8 @@ The frontend includes role-based navigation, responsive design for mobile and de
 
 ## Setup Instructions  
 
-1. **Clone the repository**   
-  ```bash  
-  git clone https://github.com/yourusername/digital-wallet-system-frontend.git  
-  cd digital-wallet-system-frontend  
+1. **Create**   
+  create digital-wallet-system-frontend  
 2. **Install dependencies**
   npm install  
   # or  
@@ -38,7 +36,7 @@ The frontend includes role-based navigation, responsive design for mobile and de
   pnpm install  
 3. **Configure Environment Variables**  
   Create a .env file in the root directory:  
-  VITE_API_URL=https://backend-digital-wallet-system.vercel.app  
+  VITE_BASE_URL=https://backend-digital-wallet-system.vercel.app/api/v1
 4. **Start Development Server**  
   npm run dev  
   # or  
