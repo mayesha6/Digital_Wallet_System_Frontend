@@ -1,69 +1,71 @@
-# React + TypeScript + Vite
+# Digital Wallet System - Frontend   
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Project Overview  
+Digital Wallet System is a web application frontend for managing digital wallets, performing transactions, and viewing user information. This project is built using **React** and integrates with a backend API for authentication, wallet management, and transaction handling.   
+The frontend includes role-based navigation, responsive design for mobile and desktop, and a modern UI with light/dark mode support.  
 
-Currently, two official plugins are available:
+## Live Demo  
+[Frontend Live URL](https://digital-wallet-system-frontend-sepia.vercel.app/)  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technology Stack  
+- **Frontend Framework:** React.js (Vite)  
+- **State Management:** Redux Toolkit & RTK Query  
+- **UI Components:** Tailwind CSS, shadcn/ui  
+- **Routing:** React Router  
+- **Notifications:** Sonner  
+- **Build & Deployment:** Vite, Vercel  
+- **Authentication:** Cookie-based with JWT  
+- **Version Control:** Git & GitHub  
 
-## Expanding the ESLint configuration
+## Features  
+- Responsive navigation menu for public and role-based users (Admin, User, Agent, Super Admin)  
+- Login and logout with JWT token stored in HTTP-only cookies  
+- Light/Dark mode toggle  
+- Skeleton loader while fetching user info  
+- Cross-origin requests with credentials for secure API access  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Setup Instructions  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **Clone the repository**   
+  ```bash  
+  git clone https://github.com/yourusername/digital-wallet-system-frontend.git  
+  cd digital-wallet-system-frontend  
+2. **Install dependencies**
+  npm install  
+  # or  
+  yarn install  
+  # or  
+  pnpm install  
+3. **Configure Environment Variables**  
+  Create a .env file in the root directory:  
+  VITE_API_URL=https://backend-digital-wallet-system.vercel.app  
+4. **Start Development Server**  
+  npm run dev  
+  # or  
+  yarn dev  
+  # or  
+  pnpm dev  
+5. **Build for Production**  
+  npm run build  
+  # or  
+  yarn build  
+  # or  
+  pnpm build  
+6. **Preview Production Build**  
+  npm run preview  
+  # or  
+  yarn preview  
+  # or  
+  pnpm preview  
+7. **Deployment**  
+  Deploy on Vercel (already configured with vercel.json):  
+  vercel   
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Project Structure  
+  src/  
+  ├─ assets/         # Images, icons  
+  ├─ components/     # UI components (Navbar, ModeToggle, Skeleton, etc.)  
+  ├─ constants/      # Role constants, other global constants  
+  ├─ redux/          # Redux store and RTK Query slices  
+  ├─ App.tsx         # Main app entry  
+  ├─ main.tsx        # React DOM render  

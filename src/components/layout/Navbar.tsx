@@ -1,4 +1,5 @@
-// import Logo from "@/assets/icons/Logo";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -22,6 +23,7 @@ import { useAppDispatch } from "@/redux/hook";
 import React from "react";
 import { role } from "@/constants/role";
 import { Skeleton } from "@/components/ui/skeleton";
+import { toast } from "sonner";
 // import { Skeleton } from "../ui/skeleton";
 
 // Navigation links array to be used in both desktop and mobile menus
@@ -43,8 +45,17 @@ export default function Navbar() {
   const dispatch = useAppDispatch();
 
   const handleLogout = async () => {
-    await logout(undefined);
-    dispatch(authApi.util.resetApiState());
+    try {
+      const res = await logout(undefined).unwrap();
+      if (res.success) {
+        toast.success("Logged out successfully");
+        dispatch(authApi.util.resetApiState());
+        localStorage.removeItem("token");
+      }
+    } catch (err: any) {
+      console.error(err);
+      toast.error(err?.data?.message || "Logout failed");
+    }
   };
 
   console.log(data?.data?.data?.role);
@@ -143,17 +154,13 @@ export default function Navbar() {
           <ModeToggle />
 
           {isLoading ? (
-            <Skeleton className="h-9 w-20"></Skeleton>
+            <Skeleton className="h-9 w-20" />
           ) : data?.data?.data?.phone ? (
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="text-sm"
-            >
+            <Button onClick={handleLogout} variant="outline">
               Logout
             </Button>
           ) : (
-            <Button asChild className="text-sm">
+            <Button asChild>
               <Link to="/login">Login</Link>
             </Button>
           )}

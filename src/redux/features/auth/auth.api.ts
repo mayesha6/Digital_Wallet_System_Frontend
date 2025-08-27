@@ -14,9 +14,10 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
+        credentials: "include",
       }),
-      invalidatesTags: ["USER"],
     }),
+
     register: builder.mutation({
       query: (userInfo) => ({
         url: "/user/register",
@@ -25,12 +26,12 @@ export const authApi = baseApi.injectEndpoints({
       }),
     }),
     verifyUser: builder.mutation({
-  query: () => ({
-    url: "/auth/verify",
-    method: "POST",
-    withCredentials: true, 
-  }),
-}),
+      query: () => ({
+        url: "/auth/verify",
+        method: "POST",
+        withCredentials: true,
+      }),
+    }),
     // sendOtp: builder.mutation<IResponse<null>, ISendOtp>({
     //   query: (userInfo) => ({
     //     url: "/otp/send",

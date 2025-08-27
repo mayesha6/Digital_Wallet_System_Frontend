@@ -30,14 +30,16 @@ const Transaction = () => {
   const [searchText, setSearchText] = useState("");
   const [search, setSearch] = useState("");
 
-  // API Call
-  const { data, isLoading, isError } = useGetAllTransactionsQuery({
+  // API Call - removed search from API params, using client-side filtering instead
+  const queryParams = {
     page: page.toString(),
     limit: limit.toString(),
     transactionType,
     status,
-    search,
-  });
+  };
+  
+  console.log('API Query Params:', queryParams);
+  const { data, isLoading, isError } = useGetAllTransactionsQuery(queryParams);
 
   if (isLoading) {
     return (
@@ -53,9 +55,25 @@ const Transaction = () => {
     );
   }
 
-  const transactions = data?.data?.data || [];
+  const allTransactions = data?.data?.data || [];
   const meta = data?.data?.meta;
-  console.log(transactions);
+  
+  // Client-side search filtering for userId and transaction ID
+  const transactions = allTransactions.filter((txn: any) => {
+    if (!search) return true;
+    
+    const searchLower = search.toLowerCase();
+    const txnId = txn._id?.toLowerCase() || '';
+    const userId = txn.to?.toLowerCase() || '';
+    const fromUser = txn.from?.toLowerCase() || '';
+    
+    return txnId.includes(searchLower) || 
+           userId.includes(searchLower) || 
+           fromUser.includes(searchLower);
+  });
+  
+  console.log('All transactions:', allTransactions);
+  console.log('Filtered transactions:', transactions);
 
   const handleTypeChange = (value: string) => {
     setTransactionType(value === "ALL" ? "" : value);
@@ -69,12 +87,18 @@ const Transaction = () => {
   return (
     <div className="max-w-7xl w-full mx-auto py-10 px-4">
       {/* Filter Section */}
-      <Card className="mb-6 shadow-md">
+      <Card className="table-search mb-6 shadow-md">
         <CardContent className="flex flex-wrap gap-4 items-center pt-6">
           <Input
-            placeholder="Search by transaction ID or user"
+            placeholder="Search by transaction ID, userId, or from user"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                setSearch(searchText);
+                setPage(1);
+              }
+            }}
             className="w-64"
           />
           <Button
@@ -83,8 +107,20 @@ const Transaction = () => {
               setPage(1);
             }}
           >
-            search
+            Search
           </Button>
+          {search && (
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearch("");
+                setSearchText("");
+                setPage(1);
+              }}
+            >
+              Clear
+            </Button>
+          )}
 
           <Select
             value={transactionType || "ALL"}

@@ -1,4 +1,4 @@
-import Logo from "@/components/navbar-components/logo"
+
 import { Button } from "@/components/ui/button"
 import {
   NavigationMenu,
@@ -82,7 +82,7 @@ export default function Component() {
           {/* Main nav */}
           <div className="flex items-center gap-6">
             <a href="#" className="text-primary hover:text-primary/90">
-              <Logo />
+              SCASH
             </a>
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
