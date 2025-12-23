@@ -20,7 +20,7 @@ import {
   useUserInfoQuery,
 } from "@/redux/features/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
-import React from "react";
+// import React from "react";
 import { role } from "@/constants/role";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
@@ -33,6 +33,7 @@ const navigationLinks = [
   { href: "/features", label: "Features", role: "PUBLIC" },
   { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/faq", label: "FAQ", role: "PUBLIC" },
+  { href: "/whychoosescash", label: "Why US", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.ADMIN },
   { href: "/admin", label: "Dashboard", role: role.SUPER_ADMIN },
   { href: "/user", label: "Dashboard", role: role.USER },
@@ -115,14 +116,14 @@ export default function Navbar() {
           </Popover>
           {/* Main nav */}
           <div className="flex items-center gap-6">
-            <a href="#" className="text-primary hover:text-primary/90">
+            <Link to="/" className="text-primary hover:text-primary/90">
               SCASH
-            </a>
+            </Link>
             {/* Navigation menu */}
             <NavigationMenu className="max-md:hidden">
               <NavigationMenuList className="gap-2">
                 {navigationLinks.map((link, index) => (
-                  <React.Fragment key={index}>
+                  <div key={index}>
                     {link.role === "PUBLIC" && (
                       <NavigationMenuItem>
                         <NavigationMenuLink
@@ -143,7 +144,7 @@ export default function Navbar() {
                         </NavigationMenuLink>
                       </NavigationMenuItem>
                     )}
-                  </React.Fragment>
+                  </div>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>

@@ -1,114 +1,105 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Sparkles, ShieldCheck, Wallet } from "lucide-react";
 
-export default function AboutPage() {
+export default function About() {
   return (
-    <div className="max-w-5xl mx-auto px-6 pt-12 space-y-10">
+    <div className="container mx-auto px-4 my-26 space-y-20">
       {/* Hero Section */}
       <motion.div
-        initial={{ opacity: 0, y: 40 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7 }}
+        transition={{ duration: 0.6 }}
         className="text-center"
       >
-        <h1 className="text-4xl font-bold mb-4">About Us</h1>
-        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          Discover our journey, mission, and the amazing team working to bring this vision to life.
+        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          About Digital Wallet System
+        </h1>
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+          A modern, secure, and role-based digital wallet frontend built to
+          manage wallets, transactions, and users efficiently.
         </p>
       </motion.div>
 
-      {/* Our Story */}
-      <motion.section
-        initial={{ opacity: 0, x: -40 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.7 }}
-      >
-        <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
-        <p className="text-gray-700 leading-relaxed">
-          Our journey began with a simple idea — to create a platform that makes life easier
-          through technology. What started as a small project has now grown into a full-fledged
-          service that empowers users with tools designed for simplicity, efficiency, and trust.
-        </p>
-      </motion.section>
-
-       <div className="grid md:grid-cols-2 gap-8 mb-16">
+      {/* Story + Image */}
+      <div className="grid md:grid-cols-2 gap-12 items-center justify-between">
+        {/* Text */}
         <motion.div
           initial={{ opacity: 0, x: -40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <Card className="rounded-2xl shadow-md">
-            <CardContent className="p-6">
-              <h2 className="text-xl font-semibold mb-2">Our Mission</h2>
-              <p className="text-gray-600">
-                To empower people with seamless solutions that make life easier, 
-                smarter, and more connected.
-              </p>
-            </CardContent>
-          </Card>
+          <h2 className="text-3xl font-semibold mb-4">Our Story</h2>
+          <p className="text-muted-foreground leading-relaxed mb-5 justify">
+            The Digital Wallet System frontend was designed to provide a clean
+            and intuitive user experience for handling digital transactions. It
+            supports multiple roles such as Admin, User, Agent, and Super Admin
+            with clear access control.
+          </p>
+          <p className="text-muted-foreground leading-relaxed justify">
+            By leveraging modern frontend technologies, the application ensures
+            performance, security, and scalability while maintaining a smooth
+            user experience across all devices.
+          </p>
         </motion.div>
 
+        {/* Image (React friendly) */}
         <motion.div
           initial={{ opacity: 0, x: 40 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
+          className="relative w-full h-[520px] rounded-3xl overflow-hidden shadow-xl bg-zinc-500 p-3"
         >
-          <Card className="rounded-2xl shadow-md">
-            <CardContent className="p-6">
-              <h2 className="text-xl font-semibold mb-2">Our Vision</h2>
-              <p className="text-gray-600">
-                To become a trusted platform that brings people together, 
-                fostering growth and innovation for everyone.
-              </p>
-            </CardContent>
-          </Card>
+          <img
+            src="https://res.cloudinary.com/dtb6o7zzr/image/upload/v1766509266/Wavy_Tech-31_Single-01_1_jxcsoq.jpg"
+            alt="Digital wallet dashboard"
+            className="w-full h-full  rounded-2xl"
+            loading="lazy"
+          />
         </motion.div>
       </div>
 
-      {/* Our Team */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h2 className="text-2xl font-semibold mb-8 text-center">Meet Our Team</h2>
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-          {/* Example Team Member */}
-          <Card className="shadow-md rounded-2xl">
-            <CardContent className="flex flex-col items-center text-center p-6">
-              <Avatar className="h-20 w-20 mb-4">
-                <AvatarImage src="https://i.pravatar.cc/150?img=1" alt="Team Member" />
-                <AvatarFallback>AB</AvatarFallback>
-              </Avatar>
-              <h3 className="text-lg font-semibold">Alex Brown</h3>
-              <p className="text-sm text-gray-500">Founder & CEO</p>
-            </CardContent>
-          </Card>
+      {/* Mission / Vision / Security */}
+      <div className="grid md:grid-cols-3 gap-8">
+        <Card className="rounded-2xl shadow-md hover:shadow-xl transition">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Sparkles className="text-indigo-600" />
+              <h3 className="text-xl font-semibold">Our Mission</h3>
+            </div>
+            <p className="text-muted-foreground">
+              To deliver a reliable and user-friendly digital wallet interface
+              with secure authentication and role-based navigation.
+            </p>
+          </CardContent>
+        </Card>
 
-          <Card className="shadow-md rounded-2xl">
-            <CardContent className="flex flex-col items-center text-center p-6">
-              <Avatar className="h-20 w-20 mb-4">
-                <AvatarImage src="https://i.pravatar.cc/150?img=2" alt="Team Member" />
-                <AvatarFallback>MS</AvatarFallback>
-              </Avatar>
-              <h3 className="text-lg font-semibold">Maria Smith</h3>
-              <p className="text-sm text-gray-500">Lead Developer</p>
-            </CardContent>
-          </Card>
+        <Card className="rounded-2xl shadow-md hover:shadow-xl transition">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <Wallet className="text-emerald-600" />
+              <h3 className="text-xl font-semibold">Our Vision</h3>
+            </div>
+            <p className="text-muted-foreground">
+              To become a scalable and modern frontend solution for digital
+              finance applications.
+            </p>
+          </CardContent>
+        </Card>
 
-          <Card className="shadow-md rounded-2xl">
-            <CardContent className="flex flex-col items-center text-center p-6">
-              <Avatar className="h-20 w-20 mb-4">
-                <AvatarImage src="https://i.pravatar.cc/150?img=3" alt="Team Member" />
-                <AvatarFallback>JD</AvatarFallback>
-              </Avatar>
-              <h3 className="text-lg font-semibold">John Doe</h3>
-              <p className="text-sm text-gray-500">Product Designer</p>
-            </CardContent>
-          </Card>
-        </div>
-      </motion.section>
+        <Card className="rounded-2xl shadow-md hover:shadow-xl transition">
+          <CardContent className="p-6">
+            <div className="flex items-center gap-3 mb-4">
+              <ShieldCheck className="text-rose-600" />
+              <h3 className="text-xl font-semibold">Security First</h3>
+            </div>
+            <p className="text-muted-foreground">
+              Built with JWT authentication, HTTP-only cookies, and secure
+              cross-origin API communication.
+            </p>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 }

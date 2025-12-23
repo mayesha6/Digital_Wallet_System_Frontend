@@ -15,6 +15,7 @@ import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
 import { userSidebarItems } from "./userSidebarItems";
 import { agentSidebarItems } from "./agentSidebarItems";
+import WhyChooseSCash from "@/pages/WhyChooseUs";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +41,10 @@ export const router = createBrowserRouter([
       {
         Component:FAQ,
         path: "faq",
+      },
+      {
+        Component:WhyChooseSCash,
+        path: "whychoosescash",
       },
     ],
   },
