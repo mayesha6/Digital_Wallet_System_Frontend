@@ -16,6 +16,7 @@ import { adminSidebarItems } from "./adminSidebarItems";
 import { userSidebarItems } from "./userSidebarItems";
 import { agentSidebarItems } from "./agentSidebarItems";
 import WhyChooseSCash from "@/pages/WhyChooseUs";
+import FeatureDetails from "@/pages/FeatureDetaiks";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
       {
         Component: Features,
         path: "features",
+      },
+      {
+        Component: FeatureDetails,
+        path: "features-details",
       },
       {
         Component:FAQ,

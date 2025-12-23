@@ -20,17 +20,16 @@ import {
   useUserInfoQuery,
 } from "@/redux/features/auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
-// import React from "react";
 import { role } from "@/constants/role";
 import { Skeleton } from "@/components/ui/skeleton";
 import { toast } from "sonner";
-// import { Skeleton } from "../ui/skeleton";
+import { ChevronDown } from "lucide-react";
 
-// Navigation links array to be used in both desktop and mobile menus
+// Navigation links array
 const navigationLinks = [
   { href: "/", label: "Home", role: "PUBLIC" },
   { href: "/about", label: "About", role: "PUBLIC" },
-  { href: "/features", label: "Features", role: "PUBLIC" },
+  { href: "/features", label: "Features", role: "PUBLIC" }, // dropdown
   { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/faq", label: "FAQ", role: "PUBLIC" },
   { href: "/whychoosescash", label: "Why US", role: "PUBLIC" },
@@ -59,9 +58,14 @@ export default function Navbar() {
     }
   };
 
-  console.log(data?.data?.data?.role);
+  // Feature sub-links
+  const featureLinks = [
+    { href: "/features", label: "Feature" },
+    { href: "/features-details", label: "Feature Details" },
+  ];
+
   return (
-    <header className="border-b">
+    <header className="sticky top-0 z-50 border-b bg-white dark:bg-black">
       <div className="container mx-auto px-4 flex h-16 items-center justify-between gap-4">
         {/* Left side */}
         <div className="flex items-center gap-2">
@@ -100,56 +104,112 @@ export default function Navbar() {
                 </svg>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="start" className="w-36 p-1 md:hidden">
+            <PopoverContent align="start" className="w-dvh p-1 md:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
-                  {navigationLinks.map((link, index) => (
-                    <NavigationMenuItem key={index} className="w-full">
-                      <NavigationMenuLink asChild className="py-1.5">
-                        <Link to={link.href}>{link.label} </Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  ))}
+                  {navigationLinks.map((link, index) => {
+                    if (link.label === "Features") {
+                      return (
+                        <NavigationMenuItem key={index} className="w-full">
+                          {/* Collapsible Features for mobile */}
+                          <details className="w-full">
+                            <summary className="py-1.5 cursor-pointer flex justify-between items-center px-2">
+                              {link.label}{" "}
+                              <ChevronDown className="ml-1 h-4 w-4" />
+                            </summary>
+                            <ul className="pl-4 flex flex-col gap-1 mt-1">
+                              {featureLinks.map((f, i) => (
+                                <li key={i}>
+                                  <Link
+                                    to={f.href}
+                                    className="block py-1 text-muted-foreground hover:text-primary"
+                                  >
+                                    {f.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </details>
+                        </NavigationMenuItem>
+                      );
+                    }
+
+                    // Regular links
+                    return (
+                      <NavigationMenuItem key={index} className="w-full">
+                        <NavigationMenuLink asChild className="py-1.5">
+                          <Link to={link.href}>{link.label}</Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
+                    );
+                  })}
                 </NavigationMenuList>
               </NavigationMenu>
             </PopoverContent>
           </Popover>
+
           {/* Main nav */}
           <div className="flex items-center gap-6">
             <Link to="/" className="text-primary hover:text-primary/90">
               SCASH
             </Link>
-            {/* Navigation menu */}
+
             <NavigationMenu className="max-md:hidden">
-              <NavigationMenuList className="gap-2">
-                {navigationLinks.map((link, index) => (
-                  <div key={index}>
-                    {link.role === "PUBLIC" && (
-                      <NavigationMenuItem>
-                        <NavigationMenuLink
-                          asChild
-                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                        >
-                          <Link to={link.href}>{link.label}</Link>
-                        </NavigationMenuLink>
+              <NavigationMenuList className="gap-1 lg:gap-2">
+                {navigationLinks.map((link, index) => {
+                  // Features dropdown
+                  if (link.label === "Features") {
+                    return (
+                      <NavigationMenuItem key={index}>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <NavigationMenuLink className="text-muted-foreground hover:text-primary py-1.5 font-medium cursor-pointer">
+                              <span className="flex items-center gap-1">
+                                {link.label} <ChevronDown />
+                              </span>
+                            </NavigationMenuLink>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-40 p-2">
+                            <ul className="flex flex-col gap-1">
+                              {featureLinks.map((f, i) => (
+                                <li key={i}>
+                                  <Link
+                                    to={f.href}
+                                    className="block px-2 py-1 text-muted-foreground hover:bg-primary/10 rounded"
+                                  >
+                                    {f.label}
+                                  </Link>
+                                </li>
+                              ))}
+                            </ul>
+                          </PopoverContent>
+                        </Popover>
                       </NavigationMenuItem>
-                    )}
-                    {link.role === data?.data?.data?.role && (
-                      <NavigationMenuItem>
-                        <NavigationMenuLink
-                          asChild
-                          className="text-muted-foreground hover:text-primary py-1.5 font-medium"
-                        >
-                          <Link to={link.href}>{link.label}</Link>
-                        </NavigationMenuLink>
-                      </NavigationMenuItem>
-                    )}
-                  </div>
-                ))}
+                    );
+                  }
+
+                  // Regular links
+                  return (
+                    <div key={index}>
+                      {(link.role === "PUBLIC" ||
+                        link.role === data?.data?.data?.role) && (
+                        <NavigationMenuItem>
+                          <NavigationMenuLink
+                            asChild
+                            className="text-muted-foreground hover:text-primary py-1.5 font-medium"
+                          >
+                            <Link to={link.href}>{link.label}</Link>
+                          </NavigationMenuLink>
+                        </NavigationMenuItem>
+                      )}
+                    </div>
+                  );
+                })}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
         </div>
+
         {/* Right side */}
         <div className="flex items-center gap-2">
           <ModeToggle />

@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image1 from '../../../assets/hero1.jpg';
 import Image2 from '../../../assets/hero2.jpg';
 import Image3 from '../../../assets/hero3.jpg';
+import { Link } from "react-router";
 
 const Hero = () => {
   const slides = [
@@ -56,8 +57,8 @@ const Hero = () => {
               <p className="text-lg md:text-2xl mb-6 drop-shadow-md">
                 {slide.description}
               </p>
-              <Button className="bg-white text-black" size="lg">
-                Get Started
+              <Button className="bg-white text-black hover:bg-amber-50 duration-300" size="lg">
+                <Link to="/features-details">Features</Link>
               </Button>
             </div>
           </div>

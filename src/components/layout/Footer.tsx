@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="flex flex-col lg:flex-row lg:justify-between gap-8">
           <div className="text-center lg:text-left">
             <h1 className="text-2xl font-bold">SCASH</h1>
-            <p className="mt-4 max-w-xs text-muted-foreground">
+            <p className="mt-4 max-w-xs text-muted-foreground mx-auto">
               Manage your digital wallet easily, safely, and efficiently with
               SCASH.
             </p>
@@ -31,7 +31,6 @@ export default function Footer() {
                         fill="currentColor"
                         viewBox="0 0 24 24"
                       >
-                        {/* Use same SVG paths as before for each icon */}
                       </svg>
                     </a>
                   </li>
@@ -40,7 +39,6 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Links & Map */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 lg:w-2/3 text-center lg:text-left">
             <div>
               <h4 className="font-semibold mb-4">Company</h4>
@@ -59,6 +57,14 @@ export default function Footer() {
                     className="hover:text-foreground transition"
                   >
                     Features
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/features-details"
+                    className="hover:text-foreground transition"
+                  >
+                    Features Details
                   </Link>
                 </li>
               </ul>
@@ -97,8 +103,8 @@ export default function Footer() {
                   <span className="font-bold">Address: </span> Mirpur, Dhaka
                 </p>
 
-                <div>
-                  <ul className="flex gap-2 my-2">
+                <div className="w-full text-center">
+                  <ul className="flex gap-2 my-4 md:justify-start justify-center">
                     <li>
                       <a
                         href="https://www.facebook.com/mayesha.soumy"
