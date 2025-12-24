@@ -33,6 +33,8 @@ const navigationLinks = [
   { href: "/contact", label: "Contact", role: "PUBLIC" },
   { href: "/faq", label: "FAQ", role: "PUBLIC" },
   { href: "/whychoosescash", label: "Why US", role: "PUBLIC" },
+  { href: "/support", label: "Support", role: "PUBLIC" },
+  { href: "/privacy-policy", label: "Privacy & Policy", role: "PUBLIC" },
   { href: "/admin", label: "Dashboard", role: role.ADMIN },
   { href: "/admin", label: "Dashboard", role: role.SUPER_ADMIN },
   { href: "/user", label: "Dashboard", role: role.USER },
@@ -57,8 +59,7 @@ export default function Navbar() {
       toast.error(err?.data?.message || "Logout failed");
     }
   };
-
-  // Feature sub-links
+  
   const featureLinks = [
     { href: "/features", label: "Feature" },
     { href: "/features-details", label: "Feature Details" },
@@ -73,7 +74,7 @@ export default function Navbar() {
           <Popover>
             <PopoverTrigger asChild>
               <Button
-                className="group size-8 md:hidden"
+                className="group size-8 lg:hidden"
                 variant="ghost"
                 size="icon"
               >
@@ -104,14 +105,13 @@ export default function Navbar() {
                 </svg>
               </Button>
             </PopoverTrigger>
-            <PopoverContent align="start" className="w-dvh p-1 md:hidden">
+            <PopoverContent align="start" className="w-dvh p-1 md:ps-20 ps-5 lg:hidden">
               <NavigationMenu className="max-w-none *:w-full">
                 <NavigationMenuList className="flex-col items-start gap-0 md:gap-2">
                   {navigationLinks.map((link, index) => {
                     if (link.label === "Features") {
                       return (
                         <NavigationMenuItem key={index} className="w-full">
-                          {/* Collapsible Features for mobile */}
                           <details className="w-full">
                             <summary className="py-1.5 cursor-pointer flex justify-between items-center px-2">
                               {link.label}{" "}
@@ -154,7 +154,7 @@ export default function Navbar() {
               SCASH
             </Link>
 
-            <NavigationMenu className="max-md:hidden">
+            <NavigationMenu className="max-lg:hidden">
               <NavigationMenuList className="gap-1 lg:gap-2">
                 {navigationLinks.map((link, index) => {
                   // Features dropdown

@@ -17,6 +17,8 @@ import { userSidebarItems } from "./userSidebarItems";
 import { agentSidebarItems } from "./agentSidebarItems";
 import WhyChooseSCash from "@/pages/WhyChooseUs";
 import FeatureDetails from "@/pages/FeatureDetaiks";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
+import Support from "@/pages/Support";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ export const router = createBrowserRouter([
         Component:WhyChooseSCash,
         path: "whychoosescash",
       },
+      {
+        Component:PrivacyPolicy,
+        path: "privacy-policy",
+      },
+      {
+        Component:Support,
+        path: "support",
+      },
     ],
   },
   {
@@ -73,7 +83,7 @@ export const router = createBrowserRouter([
     Component: withAuth(DashboardLayout, role.AGENT as WRole),
     path: "/agent",
     children: [
-      { index: true, element: <Navigate to="/agent/cash-in" /> },
+      { index: true, element: <Navigate to="/agent/overview" /> },
       ...generateRoutes(agentSidebarItems),
     ],
   },

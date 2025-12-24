@@ -22,7 +22,6 @@ import { Loader2 } from "lucide-react";
 import { useGetAllTransactionsQuery } from "@/redux/features/admin/admin.api";
 
 const Transaction = () => {
-  // Local states for filters
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [transactionType, setTransactionType] = useState("");
@@ -30,7 +29,6 @@ const Transaction = () => {
   const [searchText, setSearchText] = useState("");
   const [search, setSearch] = useState("");
 
-  // API Call - removed search from API params, using client-side filtering instead
   const queryParams = {
     page: page.toString(),
     limit: limit.toString(),
@@ -58,7 +56,6 @@ const Transaction = () => {
   const allTransactions = data?.data?.data || [];
   const meta = data?.data?.meta;
   
-  // Client-side search filtering for userId and transaction ID
   const transactions = allTransactions.filter((txn: any) => {
     if (!search) return true;
     
@@ -85,7 +82,7 @@ const Transaction = () => {
   };
 
   return (
-    <div className="max-w-7xl w-full mx-auto py-10 px-4">
+    <div className="container w-full mx-auto py-10">
       {/* Filter Section */}
       <Card className="table-search mb-6 shadow-md">
         <CardContent className="flex flex-wrap gap-4 items-center pt-6">

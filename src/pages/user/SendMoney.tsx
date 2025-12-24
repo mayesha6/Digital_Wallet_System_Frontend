@@ -122,10 +122,11 @@ export default function SendMoney() {
             </form>
           </Form>
         </CardContent>
-        <CardFooter className="flex justify-end">
+        <CardFooter className="flex flex-col justify-end">
           <Button type="submit" form="send-money-form">
             Send
           </Button>
+          <p className="text-xs pt-4">Send money in this agent number <strong className="text-amber-700">01752363910</strong> or create an agent.</p>
         </CardFooter>
       </Card>
     </div>

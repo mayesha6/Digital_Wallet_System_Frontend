@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import {
   Sidebar,
@@ -11,10 +12,14 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-// import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
-import { useUserInfoQuery } from "@/redux/features/auth/auth.api";
+import { authApi, useUserInfoQuery } from "@/redux/features/auth/auth.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
+import { Button } from "@/components/ui/button";
+import { useLogoutMutation } from "@/redux/features/auth/auth.api";
+import { useDispatch } from "react-redux";
+import { toast } from "sonner";
+import { useNavigate } from "react-router";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useUserInfoQuery(undefined);
@@ -23,6 +28,27 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     navMain: getSidebarItems(userData?.data?.data?.role),
   };
   console.log("app-sidebar: ",data)
+const dispatch = useDispatch();
+const navigate = useNavigate();
+const [logout] = useLogoutMutation();
+
+const handleLogout = async () => {
+  try {
+    const res = await logout(undefined).unwrap();
+
+    if (res.success) {
+      toast.success("Logged out successfully");
+
+      dispatch(authApi.util.resetApiState());
+      localStorage.removeItem("token");
+
+      navigate("/");
+    }
+  } catch (err: any) {
+    console.error(err);
+    toast.error(err?.data?.message || "Logout failed");
+  }
+};
 
   return (
     <Sidebar {...props}>
@@ -32,7 +58,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         </Link>
       </SidebarHeader>
       <SidebarContent>
-        {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>
             <SidebarGroupLabel>{item.title}</SidebarGroupLabel>
@@ -49,6 +74,15 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             </SidebarGroupContent>
           </SidebarGroup>
         ))}
+        <div className="mt-auto">
+    <Button
+      variant="outline"
+      className="w-full border-0 bg-red-700 rounded-t-sm rounded-b-[0px] text-center font-bold text-white text-lg py-6 hover:bg-red-800 duration-300 hover:text-white"
+      onClick={handleLogout}
+    >
+      Logout
+    </Button>
+  </div>
       </SidebarContent>
       <SidebarRail />
     </Sidebar>

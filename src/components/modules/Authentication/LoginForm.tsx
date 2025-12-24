@@ -68,7 +68,6 @@ export function LoginForm({
     form.setValue("phone", creds.phone);
     form.setValue("password", creds.password);
 
-    // Trigger submit immediately
     form.handleSubmit(onSubmit)();
   };
 
